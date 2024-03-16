@@ -1,0 +1,13 @@
+{
+  "name": "artillery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test-load": "artillery run http.yml --output result.json ",
+    "test-websocket": "DEBUG=ws artillery run websocket.yml",
+    "report": "artillery report result.json"
+  },
+  "author": "",
+  "license": "ISC"
+}

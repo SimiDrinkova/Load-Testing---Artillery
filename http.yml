@@ -1,0 +1,40 @@
+config:
+  target: "http:reqres.in" 
+  plugins:
+    expect: {}
+  phases:
+    - duration: 60 # Duration of the test in seconds
+      arrivalRate: 5 # Number of new users to simulate per second
+
+      ## - duration: 60
+      ##   arrivalRate: 5
+      ##   rampTo: 10
+      ##   name: Ramp up load
+      ## - duration: 30
+      ##  arrivalRate: 10
+      ## rampTo: 30
+      ## name: Spike phase
+
+scenarios:
+  - flow:
+      - get:
+          url: "/api/users/2" 
+          expect:
+            - statusCode: 200
+      - post:
+          url: "/api/users" 
+          json:
+            name: "testuser"
+            job: "idiot"
+          expect:
+            - statusCode: 201
+            - hasProperty: id
+            - hasProperty: createdAt
+
+ # Define thresholds for response times
+thresholds:
+    http_req_duration:
+      - max: 500 # Maximum response time allowed for any request (in milliseconds)
+            
+plugins:
+  expect: {}
